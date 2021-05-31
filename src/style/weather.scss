@@ -1,0 +1,135 @@
+.weather-glass-morphism-box {
+    display: grid;
+    gap: 10px;
+    background: rgba( 255, 250, 250, 0.25 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 10.5px );
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    border-radius: 10px;
+}
+
+.chart {
+    height: 350px;
+    width: 100%;
+}
+
+.daily-container {
+    // width: 750px;
+}
+
+.daily-card-scroll {
+    // overflow-x: scroll;
+}
+
+.daily-card-container {
+    display: flex;
+    width: 1280px;
+}
+
+.daily-card-box {
+    margin: 5px;
+    padding: 5px;
+    height: 150px;
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+
+    & img {
+        width: 50px;
+        height: 50px;
+    }
+
+    &:hover {
+        color:rgb(255, 255, 255);
+        background-color: rgb(120, 127, 231);
+    }
+}
+
+.current-card-container {
+    display: grid;
+    gap: 10px;
+    align-items: center;
+    justify-items: center;
+    & span {
+        &.location {
+            font-size: 26px;
+        }
+    }
+   
+}
+
+$current-main-word-size: 30px;
+.current-card-main-box {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    align-content: center;
+    align-items: center;
+    justify-items: center;
+    justify-content: space-evenly;
+
+    & h2 {
+        font-size: $current-main-word-size;
+
+        &:last-child {
+            text-transform: capitalize;
+        }
+
+        & span.symbol {
+            vertical-align: super;
+            font-size: 18px;
+        }
+
+    }
+}
+
+.current-card-sub-box {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    gap: 10px;
+    justify-content: space-around;
+    background: #f7f7f7;
+    color: #737373;
+    letter-spacing: 2px;
+
+    & :nth-child(n):nth-child(odd):nth-child(-n+8) {
+        grid-column: 1;
+    }
+    & :nth-child(n):nth-child(even):nth-child(-n+8) {
+        grid-column: 2;
+    }
+    & :nth-child(n+9):nth-child(odd):nth-child(-n+16) {
+        grid-column: 3;
+    }
+    & :nth-child(n+9):nth-child(even):nth-child(-n+16) {
+        grid-column: 4;
+    }
+    & :is(dt,dd):nth-of-type(4n+1){
+        grid-row: 1;
+    }
+    & :is(dt,dd):nth-of-type(4n+2){
+        grid-row: 2;
+    }
+    & :is(dt,dd):nth-of-type(4n+3){
+        grid-row: 3;
+    }
+    & :is(dt,dd):nth-of-type(4n+4){
+        grid-row: 4;
+    }
+    & dt {
+        font-size: 16px;
+        text-align: left;
+    }
+    & dd {
+        text-align: right;
+    }
+}
+
+.flex-space-between {
+    display: flex;
+    justify-content: space-between;
+}
