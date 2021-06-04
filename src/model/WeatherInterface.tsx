@@ -1,45 +1,45 @@
-interface WeatherComm {
+interface IWeatherComm {
     clouds: number;
     dew_point: number;
     dt: number;
-    feels_like: number | FeelsLike;
+    feels_like: number | IFeelsLike;
     humidity: number;
     pressure: number;
     sunrise?: number;
     sunset?: number;
-    temp: number | Temp;
+    temp: number | ITemp;
     uvi: number;
-	weather: WeatherEntity[] ;
+	weather: IWeatherEntity[] ;
     wind_deg: number;
     wind_gust: number;
     wind_speed: number;
 }
 
 
-export default interface Weather {
+export default interface IWeather {
     lat: number;
     lon: number;
     timezone: string;
     timezone_offset: number;
-    current: Current;
-    daily: DailyEntity[];
-    hourly: HourlyEntity[];
+    current: ICurrent;
+    daily: IDailyEntity[];
+    hourly: IHourlyEntity[];
 }
 
-export interface Current extends WeatherComm {
+export interface ICurrent extends IWeatherComm {
     visibility: number;
-    rain?: Rain;
-    snow?: Snow;
+    rain?: IRain;
+    snow?: ISnow;
 }
 
-export interface WeatherEntity {
+export interface IWeatherEntity {
     description: string;
     icon: string;
     id: number;
     main: string;
 }
 
-export interface DailyEntity extends WeatherComm {
+export interface IDailyEntity extends IWeatherComm {
     moon_phase: number;
     moonrise: number;
     moonset: number;
@@ -48,13 +48,13 @@ export interface DailyEntity extends WeatherComm {
     snow?: number;
 }
 
-export interface FeelsLike {
+export interface IFeelsLike {
     day: number;
     night: number;
     eve: number;
     morn: number;
 }
-export interface Temp {
+export interface ITemp {
     day: number;
     eve: number;
     max: number;
@@ -63,22 +63,22 @@ export interface Temp {
     night: number;
 }
 
-export interface HourlyEntity extends WeatherComm {
+export interface IHourlyEntity extends IWeatherComm {
     pop: number;
-    rain?: Rain;
-    snow?: Snow;
+    rain?: IRain;
+    snow?: ISnow;
     visibility:number;
 }
 
-export interface Rain {
+export interface IRain {
     '1h': number;
 }
 
-export interface Snow {
+export interface ISnow {
     '1h': number;
 }
 
-export interface CountryInfo {
+export interface ICountryInfo {
     lat:number,
     lon:number,
     name: string,

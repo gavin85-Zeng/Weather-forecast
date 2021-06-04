@@ -7,15 +7,17 @@
 body {
     width: 100%;
     height: 100vh;
+    display: flex;
+    place-content: center;
 }
 
 .root-container {
     height: 100%;
     width: 100%;
+    max-width: 1280px;
     display: grid;
-    gap: 20px;
-    align-content: center;
-    justify-content: center;
+    grid-template-rows: 70px;
+    grid-template-columns: minmax(auto, 1280px);
 }
 
 .input-style {
@@ -38,10 +40,25 @@ body {
 }
 
 .location-container {
-    margin: 5px;
-    height: 35px;
     display: grid;
-    grid-template-columns: auto clamp(75px, 150px, 200px);
+    grid-template-columns: minmax(auto, 1130px) minmax(auto, 150px);
+    grid-template-rows: 3rem;
+    align-content: center;
+
+    & input[type='text'] {
+        font-size: 28px;
+    }
+    & input[type='button'] {
+        font-size: 20px;
+    }
+}
+
+.api-key {
+    font: {
+        size: 36px;
+        weight: blod;
+    }
+    color: #fd3f3f;
 }
 
 @import './style/weather.scss';

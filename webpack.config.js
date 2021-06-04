@@ -6,7 +6,6 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const Dotenv = require('dotenv-webpack');
 
 const isProduction = process.env.NODE_ENV == "production";
-
 const stylesHandler = MiniCssExtractPlugin.loader;
 
 const config = {
