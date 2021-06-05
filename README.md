@@ -3,6 +3,7 @@
 ![GitHub](https://img.shields.io/github/license/gavin85-Zeng/Weather-forecast)
 
 Weather forecast website challenge project  
+[Online Demo](https://gavin85-zeng.github.io/Weather-forecast/)
 
 1. In developer mode put your own API key to .env file  
 2. In production mode put your own API key at the input text field
