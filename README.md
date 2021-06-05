@@ -39,9 +39,8 @@ Use webpack devServer run this project
     npm run serve
 
 IF you want to try production mode at local server, modify package.json  
-    
-    "serve": "set NODE_ENV=production&&webpack serve"
 
+    "serve": "set NODE_ENV=production&&webpack serve"
 
 If devtool console show __***Error: Network Error App.tsx:292***__ , please disable your Adblock  
 Becuase this app will use [GEOLOCATION DB](http://geolocation-db.com) get your location
