@@ -30,7 +30,7 @@ const config = {
     }),
 
     new MiniCssExtractPlugin({
-      filename: './src/[name].css',
+      filename: './[name].css',
       chunkFilename: './[id].css'
     }),
 
@@ -38,14 +38,11 @@ const config = {
       path: './.env', // load this now instead of the ones in '.env'
       safe: false, // load '.env.example' to verify the '.env' variables are all set. Can also be a string to a different file.
     })
-    // Add your plugins here
-    // Learn more about plugins from https://webpack.js.org/configuration/plugins/
   ],
   module: {
     rules: [
       {
         test: /\.(ts|tsx)$/i,
-        // loader: "ts-loader",
         use: {
           loader: 'babel-loader',
           options: {
@@ -64,9 +61,6 @@ const config = {
         test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
         type: "asset",
       },
-
-      // Add your rules for custom modules here
-      // Learn more about loaders from https://webpack.js.org/loaders/
     ],
   },
   resolve: {

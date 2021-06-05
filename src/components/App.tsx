@@ -6,6 +6,7 @@ import Chart from "./weather/chart/Chart";
 import { ECharts } from "echarts/types/dist/echarts";
 import { fakeCoords, fakeForecast } from "../test/Fake";
 import axios from "axios";
+import ILocation from "../model/LocationInterface";
 
 const App = () => {
     const [countryInfo, setCountryInfo] = useState<ICountryInfo>()
@@ -16,38 +17,74 @@ const App = () => {
     const cityRef = useRef<HTMLInputElement>(null)
     const keyRef = useRef<HTMLInputElement>(null)
 
+    const getDefaultLocation = async ():Promise<ILocation> => {
+        let obj:ILocation = {
+            lat: undefined,
+            lon: undefined,
+            city: undefined,
+            countryName: undefined
+        }
+        const url = 'https://geolocation-db.com/json/344ec440-6bfc-11eb-a0c0-b5dee9e67313';
+        await axios.get(url)
+                .then(res => {
+                    obj.lat = res.data.latitude,
+                    obj.lon = res.data.longitude,
+                    obj.city = res.data.city,
+                    obj.countryName = res.data.country_name
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        return obj
+    }
 
-    const getForecast = async (coords:string|undefined) => {
+    const getDefaultForecast = async() => {
+        const locationInfo= await getDefaultLocation()
+        getForecast(undefined, locationInfo)
+    }
+
+    const getForecast = async (coords?:string|undefined, location?:ILocation) => {
         const inputCity = cityRef.current?.value
-        let lat, lon, name, countryName
+        let lat, lon, city, countryName
 
         if (coords !== undefined) [lat, lon] = coords.split(',')
-        if (inputCity !== undefined && inputCity !== '' && usrAPIKey !== '') {
-            [lat, lon, name, countryName] = await getCountryInfo('UserInput', inputCity, usrAPIKey)
+        if (inputCity !== undefined && inputCity !== '') {
+            let locationInfo
+            if (usrAPIKey !== '') 
+                locationInfo = await getCountryInfo(inputCity, usrAPIKey)
+            else 
+                locationInfo = await getCountryInfo(inputCity)
+
+            lat = locationInfo?.lat
+            lon = locationInfo?.lon
+            city = locationInfo?.city
+            countryName = locationInfo?.countryName
         } else {
-            if (coords !== undefined)
-                [lat, lon, name, countryName] = await getCountryInfo('Default', coords)
+            lat = location?.lat
+            lon = location?.lon
+            city = location?.city
+            countryName = location?.countryName
         }
 
-        if (!lat || !lon || !name || !countryName) {
-            alert('City info not found! please make sure your input city is correct')
-            return 
+        if (!lat || !lon || !city || !countryName) {
+            alert('City info not found!')
+            forecast === undefined ? getFakeForecast() : ''
+            return undefined
         }
-        let forecast
+
+        let sforecast
         if (usrAPIKey !== '')
-            forecast = await getCountryForecast(lat, lon, usrAPIKey)
+            sforecast = await getCountryForecast(lat, lon, usrAPIKey)
         else 
-            forecast = await getCountryForecast(lat, lon)
+            sforecast = await getCountryForecast(lat, lon)
         const info = {
             lat: parseFloat(lat),
             lon: parseFloat(lon),
-            name: name,
+            name: city,
             countryName: countryName
         }
-        console.log(forecast)
-        console.log(info)
         setCountryInfo(info)
-        setforecast(forecast)
+        setforecast(sforecast)
     }
 
     const getFakeForecast = async () => {
@@ -66,7 +103,10 @@ const App = () => {
     }
 
     const getWeahter = () => {
-        if (forecast === undefined || countryInfo === undefined) return (<div>Location info not found!</div>)
+        if (forecast === undefined || countryInfo === undefined) {
+            if (process.env.NODE_ENV === 'production') return (<div style={{fontSize:"36px",color:'red',textAlign:'center'}}>Please key-in your API key</div>)
+            return (<div>Location info not found!</div>)
+        }
         return (
             <div className='weather-glass-morphism-box'>
                 <section className='current-card-container'>
@@ -81,13 +121,16 @@ const App = () => {
         )
     }
     
-    const getUserLocation = (position:GeolocationPosition) => {
+    
+    /**
+     * if your want to get user location correctly, please use this function
+     */
+    /* const getUserLocation = (position:GeolocationPosition) => {
         const lat = '' + position.coords.latitude
         const lon = '' + position.coords.longitude
         const coords = `${lat},${lon}`
         getForecast(coords)
     }
-    
     const requirePermission = () => {
         const geo = navigator.geolocation
         if (geo) {
@@ -107,11 +150,18 @@ const App = () => {
             alert('Geolocation is not supported by this browser')
             return
         }
-    }
+    } */
+    
 
     const setTheUsrAPIKey = (e:React.ChangeEvent<HTMLInputElement>) => {
-        setUsrAPIKey(e.currentTarget.value)
+        const val = e.currentTarget.value
+        if (val.length === 32) {
+            setUsrAPIKey(e.currentTarget.value)
+        }
     }
+    useEffect(() => {
+        if (usrAPIKey !== '' && process.env.NODE_ENV === 'production' && forecast === undefined) getDefaultForecast()
+    }, [usrAPIKey])
 
     useEffect(() => {
         const resizeHandler = () => {
@@ -129,23 +179,12 @@ const App = () => {
             const chartObj = Chart(forecast.hourly, 'current-chart')
             setTempChart(chartObj)
         } else {
-            // requirePermission()
             /**
              * get location from geolocation-db.com without permission()
              * if request error net::ERR_BLOCKED_BY_CLIENT at localhost occur
              * please disable your Adblock 
              */
-             
-            const url = 'https://geolocation-db.com/json/344ec440-6bfc-11eb-a0c0-b5dee9e67313';
-            axios.get(url)
-                .then(res => {
-                    console.log(res.data)
-                    const lat = res.data.latitude
-                    const lon = res.data.longitude
-                    console.log(lat, lon)    
-                })
-                .catch(err => console.log(err))
-            getFakeForecast()
+            if (process.env.NODE_ENV === 'development') getDefaultForecast()
         }
     }, [forecast])
     
@@ -162,7 +201,3 @@ const App = () => {
 }
 
 export default App;
-
-function async() {
-    throw new Error("Function not implemented.");
-}
