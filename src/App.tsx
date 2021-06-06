@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
-import CurrentWeatherCard, {DailyWeahterSelector} from "./weather/cards/ForecastCards";
-import WeatherInterface, { ICountryInfo }  from "../model/WeatherInterface";
-import { getCountryInfo, getCountryForecast } from "../api/WeatherAPI";
-import Chart from "./weather/chart/Chart";
+import CurrentWeatherCard, {DailyWeahterSelector} from "./components/weather/cards/ForecastCards";
+import WeatherInterface, { ICountryInfo }  from "./model/WeatherInterface";
+import { getCountryInfo, getCountryForecast } from "./api/WeatherAPI";
+import Chart from "./components/weather/chart/Chart";
 import { ECharts } from "echarts/types/dist/echarts";
-import { fakeCoords, fakeForecast } from "../test/Fake";
+import { fakeCoords, fakeForecast } from "./test/Fake";
 import axios from "axios";
-import ILocation from "../model/LocationInterface";
+import ILocation from "./model/LocationInterface";
 
 const App = () => {
     const [countryInfo, setCountryInfo] = useState<ICountryInfo>()

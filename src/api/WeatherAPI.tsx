@@ -3,7 +3,7 @@ import ILocation from "../model/LocationInterface"
 import { Country } from "../Util"
 
 const ENV_API_KEY = process.env.WEATHER_API_KEY !== undefined ? process.env.WEATHER_API_KEY : ''
-const API_URL = 'http://api.openweathermap.org/'
+const API_URL = 'https://api.openweathermap.org/'
 const GEO_URL = 'geo/1.0/direct?'
 const GEO_PARAM = `q=?loc&limit=1&appid=?apikey`
 const GEO_REVSERSE_URL = 'geo/1.0/reverse?'
