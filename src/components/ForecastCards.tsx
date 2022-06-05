@@ -113,7 +113,6 @@ const DetailGrid = (props: {forecast: Forecast}) => {
 const Panel = (props: {forecast: Forecast, value: number}) => {
     const { forecast, value } = props;
 
-    console.log(forecast.weather.daily)
     return (
         <TabPanel value={value} index={forecast.id}>
             <Grid item container spacing={2}>

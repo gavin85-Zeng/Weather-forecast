@@ -118,7 +118,6 @@ const forecastSlice = createSlice({
                 const uid = checkId(ids);
                 action.payload.id = uid;
                 state.push(action.payload);
-                console.log(action.payload);
             })
             .addCase(fetchCurLocWeather.fulfilled, (state, action) => {
                 const ids: Array<number> = [];
