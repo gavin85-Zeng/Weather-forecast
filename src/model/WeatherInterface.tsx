@@ -78,9 +78,9 @@ export interface ISnow {
     '1h': number;
 }
 
-export interface ICountryInfo {
-    lat:number,
-    lon:number,
+export interface ILocationInfo {
+    lat: string,
+    lon: string,
     name: string,
     countryName: string
 }
