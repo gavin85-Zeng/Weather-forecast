@@ -1,14 +1,14 @@
 {
-  "name": "my-webpack-project",
+  "name": "weather-forecast-project",
   "version": "1.0.0",
-  "description": "My webpack project",
+  "description": "weather-forecast project",
   "main": "index.tsx",
   "scripts": {
     "build": "webpack --mode=production --node-env=production",
-    "build:dev": "webpack --mode=development",
+    "build:dev": "webpack --mode=development --node-env=development",
     "build:prod": "webpack --mode=production --node-env=production",
     "watch": "webpack --watch",
-    "serve": "webpack serve"
+    "serve": "webpack serve --node-env=development"
   },
   "repository": {
     "type": "git",
@@ -24,10 +24,17 @@
   },
   "homepage": "https://github.com/gavin85-Zeng/Weather-forecast#readme",
   "dependencies": {
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
+    "@mui/icons-material": "^5.8.0",
+    "@mui/material": "^5.8.1",
+    "@mui/styles": "^5.8.0",
+    "@reduxjs/toolkit": "^1.8.2",
     "axios": "^0.21.1",
     "echarts": "^5.1.1",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "react-redux": "^8.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.14.3",
@@ -37,6 +44,7 @@
     "@babel/preset-typescript": "^7.13.0",
     "@types/react": "^17.0.8",
     "@types/react-dom": "^17.0.5",
+    "@types/react-redux": "^7.1.24",
     "@types/webpack": "^5.28.0",
     "@webpack-cli/generators": "^2.1.0",
     "babel-loader": "^8.2.2",
