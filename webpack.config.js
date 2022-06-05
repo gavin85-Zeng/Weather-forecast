@@ -8,6 +8,11 @@ const Dotenv = require('dotenv-webpack');
 const isProduction = process.env.NODE_ENV == "production";
 const stylesHandler = MiniCssExtractPlugin.loader;
 
+let envPath = './.env.test';
+if (isProduction) {
+  envPath = './.env'
+}
+
 const config = {
   entry: {
     bundle: path.join(__dirname, 'src', 'index.tsx')
@@ -35,7 +40,7 @@ const config = {
     }),
 
     new Dotenv({
-      path: './.env', // load this now instead of the ones in '.env'
+      path: envPath, // load this now instead of the ones in '.env'
       safe: false, // load '.env.example' to verify the '.env' variables are all set. Can also be a string to a different file.
     })
   ],
