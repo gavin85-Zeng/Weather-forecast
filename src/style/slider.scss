@@ -1,0 +1,82 @@
+.slider {
+    display: flex;
+    position: relative;
+    width: 100%;
+
+    &-wrapper {
+        padding: 16px 0;
+        overflow: hidden;
+        position: relative;
+    }
+
+    &-container {
+        display: flex;
+        transition: transform 300ms ease 100ms;
+        z-index: 3;
+        width: 100%;
+    }
+
+    &-card {
+        padding: 16px;
+        border-radius: 20px;
+        background-color: #fff;
+        width: 200px;
+        box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+                    0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+                    0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+        color: #424242;
+
+        & img {
+            width: 75px;
+            height: 75px;
+        }
+
+    }
+
+    &-button {
+        position: absolute;
+        top: 50px;
+        bottom: 0;
+        height: 50px;
+        width: 50px;
+        background: rgba(165, 165, 165, 0.5);
+        border:0;
+        border-radius: 50%;
+        outline: 0;
+        padding: 0;
+        margin: 40px 0;
+        z-index: 4;
+        
+        span {
+          width: 25px;
+          color: #fff;
+          display: block;
+          margin: 0 auto;
+        }
+
+        &:hover {
+            background: rgba(165, 165, 165, 0.8);
+        }
+
+        &-prev {
+            left: -25px;
+    
+            span {
+                position: relative;
+                right: 5px;
+                transform: rotateZ(90deg);
+            }
+        }
+
+        &-next {
+            right: -25px;
+        
+            span {
+                position: relative;
+                left: 5px;
+                transform: rotateZ(-90deg);
+            }
+        }
+    }
+    
+}
