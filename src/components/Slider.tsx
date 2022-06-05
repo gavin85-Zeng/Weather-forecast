@@ -163,14 +163,14 @@ const buildRiseSetCanvas = (type:string, rise: number, set: number) => {
     const pointImg = new Image();
     const riseImg = new Image();
     const setImg = new Image();
-    pointImg.src = "/assets/sun.svg";
-    riseImg.src = "/assets/sunrise.svg";
-    setImg.src = "/assets/sunset.svg";
+    pointImg.src = "./assets/sun.svg";
+    riseImg.src = "./assets/sunrise.svg";
+    setImg.src = "./assets/sunset.svg";
 
     if (type === "moon") {
-        pointImg.src = "/assets/moon.svg";
-        riseImg.src = "/assets/moonrise.png";
-        setImg.src = "/assets/moonset.png";
+        pointImg.src = "./assets/moon.svg";
+        riseImg.src = "./assets/moonrise.png";
+        setImg.src = "./assets/moonset.png";
     }
     riseImg.onload = () => {
         setImgCenter(riseImg);
