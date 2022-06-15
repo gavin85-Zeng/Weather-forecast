@@ -39,7 +39,6 @@ const CountryTab = () => {
     const forecasts = useSelector(selectForecast);
     const tabValue = useSelector(selectTabValue);
     const isSearch = useSelector(selectSearchFlag);
-    let isRemoving = false;
 
     useEffect( ()=> {
         if (isSearch) {
@@ -52,8 +51,7 @@ const CountryTab = () => {
     }, [forecasts])
     
     const removeTab = (event: React.MouseEvent<SVGSVGElement>) => {
-        isRemoving = false;
-        event.stopPropagation; // not working? use boolean to prevent onChange event
+        event.stopPropagation(); 
 
         let tabID = parseInt(event.currentTarget.id);
         let tabIDIdx = 0;
@@ -78,15 +76,9 @@ const CountryTab = () => {
         }
 
         dispatch(delForecast(tabID));
-        isRemoving = true;
     }
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-        // prevent click X trigger setValue
-        if (isRemoving)
-            return;
-        
-        // setValue(newValue);
         dispatch(setTabValue(newValue));
     };
     
